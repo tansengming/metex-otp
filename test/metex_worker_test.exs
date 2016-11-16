@@ -9,8 +9,11 @@ defmodule Metex.WorkerTest do
 
   test '.get_temperature' do
     {:ok, server_pid} = Metex.Worker.start_link([])
-    {status, _pid}    = Metex.Worker.get_temperature(server_pid, "Sydney")
+    assert Metex.Worker.get_temperature(server_pid, "Sydney") != nil
+  end
 
-    assert status == :reply
+  test '.get_stats' do
+    {:ok, server_pid} = Metex.Worker.start_link([])
+    assert Metex.Worker.get_stats(server_pid) != nil
   end
 end

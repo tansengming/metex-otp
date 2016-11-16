@@ -10,12 +10,17 @@ defmodule Metex.Worker do
     GenServer.call(pid, {:location, location})
   end
 
+  def get_stats(pid) do
+    GenServer.call(pid, :get_stats)
+  end
+
   # server
   def init(:ok) do
     {:ok, %{}}
   end
 
   # where does stats come from??
+  # i guess it comes from the reply? and then gets saved globally?
   def handle_call({:location, location}, _from, stats) do
     case temperature_of(location) do
       {:ok, temp} ->
@@ -24,6 +29,10 @@ defmodule Metex.Worker do
       _ ->
         {:reply, :error, stats}
     end
+  end
+
+  def handle_call(:get_stats, _from, stats) do
+    {:reply, stats, stats}
   end
 
   # Helpers

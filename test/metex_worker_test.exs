@@ -28,7 +28,11 @@ defmodule Metex.WorkerTest do
     assert Metex.Worker.get_stats(state[:server_pid]) == %{"Sydney" => 2, "Singapore" => 1}
   end
 
-  # test '.stop' do
-  #   {:ok, server_pid} = Metex.Worker.start_link([])
-  # end
+  test '.stop', state do
+    assert true == Process.alive?(state[:server_pid])
+    Metex.Worker.stop(state[:server_pid])
+
+    # can't test because stop is async
+    # assert false == Process.alive?(state[:server_pid])
+  end
 end

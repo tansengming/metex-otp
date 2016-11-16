@@ -3,6 +3,7 @@ defmodule Metex.WorkerTest do
 
   setup do
     {status, pid} = Metex.Worker.start_link([])
+    # Note: setup expects to return {:ok, state}
     {:ok, server_pid: pid, status: status}
   end
 

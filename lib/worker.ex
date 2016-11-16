@@ -14,9 +14,17 @@ defmodule Metex.Worker do
     GenServer.call(pid, :get_stats)
   end
 
+  def reset_stats(pid) do
+    GenServer.cast(pid, :reset_stats)
+  end
+
   # server
   def init(:ok) do
     {:ok, %{}}
+  end
+
+  def handle_cast(:reset_stats, _stats) do
+    {:noreply, %{}}
   end
 
   # where does stats come from??

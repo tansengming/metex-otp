@@ -22,3 +22,10 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
     end
     ```
 
+## Development
+
+To run all the tests, do the following on the command line:
+
+```sh
+mix test
+```

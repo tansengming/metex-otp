@@ -35,4 +35,23 @@ defmodule Metex.WorkerTest do
     # can't test because stop is async
     # assert false == Process.alive?(state[:server_pid])
   end
+
+  # these tests do not require the server, compare with the tests that
+  # require start link above
+  test 'handle get_stats' do
+    {:reply, _stats, stats} = Metex.Worker.handle_call(:get_stats, 1, %{})
+    assert stats == %{}
+
+    {:reply, _stats, stats} = Metex.Worker.handle_call(:get_stats, 1, %{"Sydney" => 1})
+    assert stats == %{"Sydney" => 1}
+
+  end
+
+  test 'handle location' do
+    {:reply, _temp, stats} = Metex.Worker.handle_call({:location, "Sydney"}, nil, %{})
+    assert stats == %{"Sydney" => 1}
+
+    {:reply, _temp, stats} = Metex.Worker.handle_call({:location, "Sydney"}, nil, %{"Sydney" => 1, "Kuala Lumpur" => 1})
+    assert stats == %{"Sydney" => 2, "Kuala Lumpur" => 1}
+  end
 end

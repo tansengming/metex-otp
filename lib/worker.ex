@@ -87,7 +87,7 @@ defmodule Metex.Worker do
 
   defp url_for(location) do
     location = URI.encode(location)
-    "http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{apikey}"
+    "http://api.openweathermap.org/data/2.5/weather?q=#{location}&appid=#{apikey()}"
   end
 
   defp apikey do
